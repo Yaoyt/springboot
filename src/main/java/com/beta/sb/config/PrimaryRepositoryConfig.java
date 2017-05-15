@@ -27,7 +27,7 @@ import java.util.Map;
 @EnableJpaRepositories(
         entityManagerFactoryRef="entityManagerFactoryPrimary",
         transactionManagerRef="transactionManagerPrimary",
-        basePackages= { "com.beta.sb.domain" }) //设置Repository所在位置
+        basePackages= { "com.beta.sb.domain.primary" }) //设置Repository所在位置
 public class PrimaryRepositoryConfig {
 
     @Autowired

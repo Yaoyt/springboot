@@ -1,0 +1,38 @@
+banner:
+    charset: UTF-8
+
+server:
+    tomcat:
+        uri-encoding: UTF-8
+
+spring:
+    http:
+        encoding:
+            charset: UTF-8
+            enabled: true
+            force: true
+    messages:
+        encoding: UTF-8
+    profiles:
+        active: test
+    datasource:
+        url: jdbc:mysql://101.200.74.145:3306/test
+        username: test
+        password: test_123
+        driver-class-name: com.mysql.jdbc.Driver
+
+        primary:
+            url: jdbc:mysql://101.200.74.145:3306/test
+            username: test
+            password: test_123
+            driver-class-name: com.mysql.jdbc.Driver
+        secondary:
+            url: jdbc:mysql://101.200.74.145:3306/test2
+            username: test
+            password: test_123
+            driver-class-name: com.mysql.jdbc.Driver
+    jpa:
+        properties:
+            hibernate:
+                hbm2ddl:
+                    auto: create-drop   # validate

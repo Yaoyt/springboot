@@ -1,9 +1,9 @@
 package com.beta.sb.config;
 
 import com.beta.sb.Application;
-import com.beta.sb.Repository.MessageRepository;
-import com.beta.sb.Repository.UserRepository;
+import com.beta.sb.domain.second.MessageRepository;
 import com.beta.sb.domain.primary.User;
+import com.beta.sb.domain.primary.UserRepository;
 import com.beta.sb.domain.second.Message;
 import org.junit.Assert;
 import org.junit.Test;

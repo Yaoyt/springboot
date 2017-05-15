@@ -1,0 +1,7 @@
+server:
+    port: 8080
+
+common:
+    properties:
+        name: 张三_test
+        title: 标题_test
