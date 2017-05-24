@@ -1,6 +1,6 @@
 server:
     port: 8080
-
+    context-path: /sb_pro
 common:
     properties:
         name: zhangsan_prod
