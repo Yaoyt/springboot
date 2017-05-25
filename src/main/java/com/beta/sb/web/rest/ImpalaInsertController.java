@@ -230,7 +230,7 @@ public class ImpalaInsertController {
                 ImpalaBaseData baseData = new ImpalaBaseData();
                 baseData.setUsercode("user_code_" + new Random().nextInt(10000000));
                 baseData.setItemcode("item_code_" + new Random().nextInt(100000));
-                baseData.setEventId(1);
+                baseData.setEventId(2);
                 List<ImpalaMetaData> baseAttrs = Lists.newArrayList();
                 //event_id = 1, 购买时间
                 ImpalaMetaData meta1 = new ImpalaMetaData();
