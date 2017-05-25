@@ -2,7 +2,6 @@ package com.beta.sb.common.httpclient;
 
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLInitializationException;
-import org.apache.http.ssl.SSLContexts;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;

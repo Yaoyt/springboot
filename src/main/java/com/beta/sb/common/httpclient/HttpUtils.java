@@ -1,8 +1,6 @@
 package com.beta.sb.common.httpclient;
 
 import com.alibaba.fastjson.JSON;
-import com.common.sys.constants.UrlConstants;
-import com.common.sys.exception.BusinessException;
 import org.apache.http.*;
 import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.client.config.RequestConfig;
@@ -26,8 +24,8 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLHandshakeException;
@@ -45,7 +43,7 @@ import java.util.List;
  */
 public class HttpUtils {
 
-    private static final Logger LOG = LogManager.getLogger(HttpUtils.class);
+    private static Logger logger = LoggerFactory.getLogger(HttpUtils.class);
 
     private static PoolingHttpClientConnectionManager cm;
     private static HttpRequestRetryHandler httpRequestRetryHandler;
@@ -67,7 +65,7 @@ public class HttpUtils {
         // 将每个路由基础的连接增加到100
         cm.setDefaultMaxPerRoute(200);
         // 将大数据目标主机的链接数增大到100
-        HttpHost hpHost = new HttpHost(UrlConstants.BIG_DATA_HOST,UrlConstants.BIG_DATA_PORT);
+        HttpHost hpHost = new HttpHost("http://10.138.26.58",8080);
         cm.setMaxPerRoute(new HttpRoute(hpHost), 100);
 
         //请求重试处理
@@ -133,17 +131,17 @@ public class HttpUtils {
             HttpEntity responseEntity = response.getEntity();
             result = getResultContent(responseEntity);
             EntityUtils.consume(responseEntity);
-            LOG.debug("调用接口{},状态:成功,返回:{},共消耗时间{}ms",url,result,System.currentTimeMillis() - startTime);
+            logger.debug("调用接口{},状态:成功,返回:{},共消耗时间{}ms",url,result,System.currentTimeMillis() - startTime);
         } catch (IOException e) {
-            LOG.error("调用接口{},状态:失败,共消耗时间{}ms",url,System.currentTimeMillis() - startTime,e);
-            throw new BusinessException("httpGet调用URL失败",e);
+            logger.error("调用接口{},状态:失败,共消耗时间{}ms",url,System.currentTimeMillis() - startTime,e);
+            throw new RuntimeException("httpGet调用URL失败",e);
         } finally {
             try {
                 if(response != null){
                     response.close();
                 }
             } catch (IOException e) {
-                throw new BusinessException("关闭HttpClient失败",e);
+                throw new RuntimeException("关闭HttpClient失败",e);
             }
         }
         return result;
@@ -167,17 +165,17 @@ public class HttpUtils {
             HttpEntity responseEntity = response.getEntity();
             result = getResultContent(responseEntity);
             EntityUtils.consume(responseEntity);
-            LOG.debug("调用接口{},参数{},状态:成功,返回:{},共消耗时间{}ms", url, JSON.toJSONString(paras), result,System.currentTimeMillis() - startTime);
+            logger.debug("调用接口{},参数{},状态:成功,返回:{},共消耗时间{}ms", url, JSON.toJSONString(paras), result,System.currentTimeMillis() - startTime);
         }catch (Exception e) {
-            LOG.error("调用接口{},参数{},状态:失败,共消耗时间{}ms", url, JSON.toJSONString(paras), System.currentTimeMillis() - startTime,e);
-            throw new BusinessException("httpPost调用URL失败",e);
+            logger.error("调用接口{},参数{},状态:失败,共消耗时间{}ms", url, JSON.toJSONString(paras), System.currentTimeMillis() - startTime,e);
+            throw new RuntimeException("httpPost调用URL失败",e);
         }finally {
             try {
                 if(response != null){
                     response.close();
                 }
             } catch (IOException e) {
-                throw new BusinessException("关闭HttpClient失败",e);
+                throw new RuntimeException("关闭HttpClient失败",e);
             }
         }
         return result;
@@ -201,17 +199,17 @@ public class HttpUtils {
             HttpEntity responseEntity = response.getEntity();
             result = getResultContent(responseEntity);
             EntityUtils.consume(responseEntity);
-            LOG.debug("调用接口{},参数{},状态:成功,返回:{},共消耗时间{}ms", url, value,result,System.currentTimeMillis() - startTime);
+            logger.debug("调用接口{},参数{},状态:成功,返回:{},共消耗时间{}ms", url, value,result,System.currentTimeMillis() - startTime);
         }catch (Exception e) {
-            LOG.error("调用接口{},参数{},状态:失败,共消耗时间{}ms", url, value, System.currentTimeMillis() - startTime,e);
-            throw new BusinessException("httpPost调用URL失败",e);
+            logger.error("调用接口{},参数{},状态:失败,共消耗时间{}ms", url, value, System.currentTimeMillis() - startTime,e);
+            throw new RuntimeException("httpPost调用URL失败",e);
         }finally {
             try {
                 if(response != null){
                     response.close();
                 }
             } catch (IOException e) {
-                throw new BusinessException("关闭HttpClient失败",e);
+                throw new RuntimeException("关闭HttpClient失败",e);
             }
         }
         return result;
@@ -235,17 +233,17 @@ public class HttpUtils {
             HttpEntity responseEntity = response.getEntity();
             result = getResultContent(responseEntity);
             EntityUtils.consume(responseEntity);
-            LOG.debug("调用接口{},状态:成功,返回:{},共消耗时间{}ms", url,result,System.currentTimeMillis() - startTime);
+            logger.info("调用接口{},状态:成功,返回:{},共消耗时间{}ms", url,result,System.currentTimeMillis() - startTime);
         }catch (Exception e) {
-            LOG.error("调用接口{},状态:失败,共消耗时间{}ms", url, System.currentTimeMillis() - startTime,e);
-            throw new BusinessException("httpPost调用URL失败",e);
+            logger.error("调用接口{},状态:失败,共消耗时间{}ms", url, System.currentTimeMillis() - startTime,e);
+            throw new RuntimeException("httpPost调用URL失败",e);
         }finally {
             try {
                 if(response != null){
                     response.close();
                 }
             } catch (IOException e) {
-                throw new BusinessException("关闭HttpClient失败",e);
+                throw new RuntimeException("关闭HttpClient失败",e);
             }
         }
         return result;
@@ -270,17 +268,17 @@ public class HttpUtils {
             HttpEntity resEntity = response.getEntity();
             result = getResultContent(resEntity);
             EntityUtils.consume(resEntity);
-            LOG.debug("调用接口{},参数{},状态:成功,返回:{},共消耗时间{}ms", url, xmlContent, result,System.currentTimeMillis() - startTime);
+            logger.debug("调用接口{},参数{},状态:成功,返回:{},共消耗时间{}ms", url, xmlContent, result,System.currentTimeMillis() - startTime);
         } catch (Exception e) {
-            LOG.error("调用接口{},参数{},状态:失败,共消耗时间{}ms", url, xmlContent, System.currentTimeMillis() - startTime, e);
-            throw new BusinessException("doPostXMl调用URL失败", e);
+            logger.error("调用接口{},参数{},状态:失败,共消耗时间{}ms", url, xmlContent, System.currentTimeMillis() - startTime, e);
+            throw new RuntimeException("doPostXMl调用URL失败", e);
         } finally {
             try {
                 if (response != null) {
                     response.close();
                 }
             } catch (IOException e) {
-                throw new BusinessException("关闭HttpClient失败", e);
+                throw new RuntimeException("关闭HttpClient失败", e);
             }
         }
         return result;

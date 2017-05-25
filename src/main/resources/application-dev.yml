@@ -1,6 +1,10 @@
 server:
-    port: 8080
+    port: 8083
     context-path: /sb
+
+logging:
+    level:
+        root: info
 
 common:
     properties:
