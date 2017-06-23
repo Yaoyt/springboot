@@ -22,6 +22,20 @@ public class ImpalaMetaData {
 
     private String metaData;
 
+    public ImpalaMetaData(long id, int metaType, String metaData) {
+        this.id = id;
+        this.metaData = metaData;
+        this.metaType = metaType;
+    }
+
+    public ImpalaMetaData() {
+        this.id = 0;
+        this.metaData = "";
+        this.metaType = 0;
+    }
+
+
+
 
     public long getId() {
         return id;
@@ -49,6 +63,9 @@ public class ImpalaMetaData {
                 break;
             case 3:
                 o = Double.valueOf(metaData);
+                break;
+            case 4:
+                o = String.valueOf(metaData);
                 break;
         }
         return o;
