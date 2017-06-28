@@ -31,7 +31,7 @@ import java.util.Random;
 @RequestMapping("/impala/v2")
 public class ImpalaInsertDataForTest {
 
-    private static String url = "http://localhost:8081/api/v1/";
+    private static String url = "http://localhost:8081/api/v2/";
 
     private static String auth = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTQ5OTIzMzQxN30.uzjomX3JJsh8mGT5whyX6n1dcW9Pa2Jn1EnHogambbJKKqge8Z9AzDQv0_6kFtPpj969-M8tk4Lf2hwKnvu-WQ";
 
@@ -396,9 +396,9 @@ public class ImpalaInsertDataForTest {
     @GetMapping("/importCsv")
     public String importCsv(@RequestParam(value="start",required=true) int start, @RequestParam(value="end",required=true)int end){
         ImpalaBatchData batch = new ImpalaBatchData();
-        batch.setCid(111L);
+        batch.setCid(120L);
         for (int s = start; s < end; s ++) {
-            int countStart = s * 100000;
+            int countStart = s * 10000;
             Long startTime = System.currentTimeMillis();
 
             //List<String> dataList = CSVUtils.importCsv(new File("/Users/yaoyt/Downloads/test.csv"),countStart);
@@ -409,6 +409,7 @@ public class ImpalaInsertDataForTest {
                 String data = dataList.get(i);
                 String[] attrs = data.split(",");
                 ImpalaBaseData baseData = new ImpalaBaseData();
+                baseData.setUsercode(attrs[0]);
                 List<ImpalaMetaData> baseAttrs = Lists.newArrayList();
                 for (int j = 0; j < attrs.length; j ++) {
                     String attr = attrs[j];
@@ -425,12 +426,14 @@ public class ImpalaInsertDataForTest {
                     }else{
                         meta = new ImpalaMetaData(30L, 0, attr);
                     }*/
-                    if (j == 0 || j == 3 ||j == 20 || j ==21 ) {
-                        meta = new ImpalaMetaData(30L, 1, attr);
+                    if ( j == 3 ||j == 20 || j ==21 ) {
+                        meta = new ImpalaMetaData(10L + j, 1, attr);
+                    }else if ( j == 6 || j == 7 || j == 8 || j == 9  ){
+                        meta = new ImpalaMetaData(10L + j, 2, attr);
                     }else if (j == 11) {
-                        meta = new ImpalaMetaData(30L, 0, attr);
+                        meta = new ImpalaMetaData(10L + j, 3, attr);
                     }else{
-                        meta = new ImpalaMetaData(30L, 0, attr);
+                        meta = new ImpalaMetaData(10L + j, 0, attr);
                     }
                     baseAttrs.add(meta);
                 }
@@ -440,7 +443,7 @@ public class ImpalaInsertDataForTest {
             batch.setDatas(datas);
             //System.out.println(JSON.toJSONString(batch));
             logger.info("开始请求第{}千事件信息,数据整理时间:{}ms",s,System.currentTimeMillis() - startTime);
-            HttpUtils.doPostImpala(url+"batch/inserteventForTest",auth, JSON.toJSONString(batch));
+            HttpUtils.doPostImpala(url+"batch/insertuser",auth, JSON.toJSONString(batch));
             logger.info("保存成功");
         }
         return "success";

@@ -49,27 +49,6 @@ public class ImpalaMetaData {
         return metaData;
     }
 
-    public Object getJavaMetaData(){
-        Object o = new Object();
-        switch (metaType){
-            case 0:
-                o = String.valueOf(metaData);
-                break;
-            case 1:
-                o = Long.valueOf(metaData);
-                break;
-            case 2:
-                o = String.valueOf(metaData);
-                break;
-            case 3:
-                o = Double.valueOf(metaData);
-                break;
-            case 4:
-                o = String.valueOf(metaData);
-                break;
-        }
-        return o;
-    }
 
     public void setMetaData(String metaData) {
         this.metaData = metaData;

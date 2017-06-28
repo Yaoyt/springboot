@@ -78,7 +78,7 @@ public class CSVUtils {
         List<String> dataList=new ArrayList<String>();
         BufferedReader br=null;
         int countNum = 0;
-        int countMax = size + 100000;
+        int countMax = size + 10000;
         try {
             br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"GBK"),10 * 1024 * 1024);
             String line = "";
