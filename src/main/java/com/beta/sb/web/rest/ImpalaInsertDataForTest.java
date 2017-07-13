@@ -398,11 +398,11 @@ public class ImpalaInsertDataForTest {
         ImpalaBatchData batch = new ImpalaBatchData();
         batch.setCid(120L);
         for (int s = start; s < end; s ++) {
-            int countStart = s * 10000;
+            int countStart = s * 100000;
             Long startTime = System.currentTimeMillis();
 
-            //List<String> dataList = CSVUtils.importCsv(new File("/Users/yaoyt/Downloads/test.csv"),countStart);
-            List<String> dataList = CSVUtils.importCsv(new File("/root/test.csv"),countStart);
+            List<String> dataList = CSVUtils.importCsv(new File("/Users/yaoyt/Downloads/test3.csv"),countStart);
+            //List<String> dataList = CSVUtils.importCsv(new File("/root/test.csv"),countStart);
             List<ImpalaBaseData> datas = Lists.newArrayList();
 
             for (int i = 0; i < dataList.size(); i ++) {
