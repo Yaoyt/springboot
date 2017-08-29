@@ -1,13 +1,10 @@
 package com.beta.sb.system;
 
-import com.beta.sb.domain.User;
 import com.beta.sb.service.GitHubLookupService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.concurrent.Future;
 
 /**
  * Created by yaoyt on 17/7/14.
@@ -30,7 +27,7 @@ public class CommandRunner implements CommandLineRunner {
     public void run(String... strings) throws Exception {
         long start = System.currentTimeMillis();
 
-        // Kick of multiple, asynchronous lookups
+        /*// Kick of multiple, asynchronous lookups
         Future<User> page1 = gitHubLookupService.findUser("PivotalSoftware");
         Future<User> page2 = gitHubLookupService.findUser("CloudFoundry");
         Future<User> page3 = gitHubLookupService.findUser("Spring-Projects");
@@ -44,7 +41,7 @@ public class CommandRunner implements CommandLineRunner {
         logger.info("Elapsed time: " + (System.currentTimeMillis() - start));
         logger.info("--> " + page1.get());
         logger.info("--> " + page2.get());
-        logger.info("--> " + page3.get());
+        logger.info("--> " + page3.get());*/
 
     }
 }

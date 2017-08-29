@@ -4,8 +4,13 @@ server:
 
 # 日志级别,默认的日志实现是logback
 logging:
+    path: /tmp
     level:
-        root: info
+        root: "TRACE"
+        com.beta.sb.web.rest.HelloWorldController: "WARN"
+    config:
+        classpath: logback-spring.xml
+
 
 common:
     properties:
