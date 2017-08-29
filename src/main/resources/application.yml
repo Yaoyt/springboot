@@ -5,6 +5,31 @@ server:
     tomcat:
         uri-encoding: UTF-8
 
+# for springboot actuator 配置
+management:
+    port: 9001             #actuator暴露接口使用的端口
+    context-path: /admin   #actuator暴露接口的前缀
+    security:
+        roles: SUPERUSER
+        enabled: true      #actuator是否需要安全保证
+
+endpoints:
+    metrics:
+        enabled: true
+        sensitive: true    #actuator的metrics接口是否需要安全保证
+    health:
+        enabled: true
+        sensitive: true    #actuator的health接口是否需要安全保证
+
+# for springboot security
+security:
+    basic:
+        enabled: true
+        path: /admin       #针对/admin路径进行认证
+    user:
+        name: admin        #认证使用的用户名
+        password: admin    #认证使用的密码
+
 spring:
     http:
         encoding:
@@ -15,6 +40,7 @@ spring:
         encoding: UTF-8
     profiles:
         active: dev
+
     datasource:
         url: jdbc:mysql://101.200.74.145:3306/test
         username: test
@@ -37,3 +63,8 @@ spring:
                 hbm2ddl:
                     auto: create-drop
         show-sql: true
+
+info:
+    app:
+        name: springboot2
+        version: v1.0.0
