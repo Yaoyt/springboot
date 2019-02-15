@@ -16,6 +16,17 @@ public class RandomTest {
         for (int i = 0; i < 100; i ++){
             System.out.println(new Random().nextInt(10000000));
         }
+    }
 
+    @Test
+    public void test2(){
+        Integer i = 0;
+        add2(i);
+        System.out.println(i);
+    }
+
+
+    public void add2(Integer i) {
+        i ++;
     }
 }

@@ -31,7 +31,7 @@ import java.util.Random;
 @RequestMapping("/impala/v2")
 public class ImpalaInsertDataForTest {
 
-    private static String url = "http://localhost:8081/api/v1/";
+    private static String url = "http://localhost:8081/api/v2/";
 
     private static String auth = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTQ5OTIzMzQxN30.uzjomX3JJsh8mGT5whyX6n1dcW9Pa2Jn1EnHogambbJKKqge8Z9AzDQv0_6kFtPpj969-M8tk4Lf2hwKnvu-WQ";
 
@@ -57,34 +57,34 @@ public class ImpalaInsertDataForTest {
                 List<ImpalaMetaData> baseAttrs = Lists.newArrayList();
                 // metaType : 0-字符串,1-整数,2-时间字符串,3-小数,4-boolean, 5-tinyint
                 // 姓名
-                ImpalaMetaData meta0 = new ImpalaMetaData(10L,0,RandomUtils.getRandomStr("张三","李四","王五","赵六"));
+                ImpalaMetaData meta0 = new ImpalaMetaData(10L,0, RandomUtils.getRandomStr("张三","李四","王五","赵六"));
                 baseAttrs.add(meta0);
                 //年龄
-                ImpalaMetaData meta1 = new ImpalaMetaData(11L,1,RandomUtils.getRandomAge());
+                ImpalaMetaData meta1 = new ImpalaMetaData(11L,1, RandomUtils.getRandomAge());
                 baseAttrs.add(meta1);
                 //注册时间
-                ImpalaMetaData meta2 = new ImpalaMetaData(12L,2,RandomUtils.getRandomEventTime());
+                ImpalaMetaData meta2 = new ImpalaMetaData(12L,2, RandomUtils.getRandomEventTime());
                 baseAttrs.add(meta2);
                 //体重
-                ImpalaMetaData meta3 = new ImpalaMetaData(13L,3,RandomUtils.getDouble());
+                ImpalaMetaData meta3 = new ImpalaMetaData(13L,3, RandomUtils.getDouble());
                 baseAttrs.add(meta3);
                 //是否是会员
-                ImpalaMetaData meta4 = new ImpalaMetaData(14L,4,RandomUtils.getRandomStr("true","false"));
+                ImpalaMetaData meta4 = new ImpalaMetaData(14L,4, RandomUtils.getRandomStr("true","false"));
                 baseAttrs.add(meta4);
                 //是否已绑定手机号
-                ImpalaMetaData meta5 = new ImpalaMetaData(15L,5,RandomUtils.getRandomStr("true","false"));
+                ImpalaMetaData meta5 = new ImpalaMetaData(15L,5, RandomUtils.getRandomStr("true","false"));
                 baseAttrs.add(meta5);
                 //性别
-                ImpalaMetaData meta6 = new ImpalaMetaData(16L,0,RandomUtils.getRandomSex());
+                ImpalaMetaData meta6 = new ImpalaMetaData(16L,0, RandomUtils.getRandomSex());
                 baseAttrs.add(meta6);
                 //城市
-                ImpalaMetaData meta7 = new ImpalaMetaData(17L,0,RandomUtils.getRandomStr("北京","上海","广东","深圳"));
+                ImpalaMetaData meta7 = new ImpalaMetaData(17L,0, RandomUtils.getRandomStr("北京","上海","广东","深圳"));
                 baseAttrs.add(meta7);
                 //民族
-                ImpalaMetaData meta8 = new ImpalaMetaData(18L,0,RandomUtils.getRandomStr("汉族","朝鲜族","壮族","回族"));
+                ImpalaMetaData meta8 = new ImpalaMetaData(18L,0, RandomUtils.getRandomStr("汉族","朝鲜族","壮族","回族"));
                 baseAttrs.add(meta8);
                 //身份证号
-                ImpalaMetaData meta9 = new ImpalaMetaData(19L,0,RandomUtils.getRandomStr("371325199001"+userId));
+                ImpalaMetaData meta9 = new ImpalaMetaData(19L,0, RandomUtils.getRandomStr("371325199001"+userId));
                 baseAttrs.add(meta9);
 
                 baseData.setBaseAttrs(baseAttrs);
@@ -120,38 +120,38 @@ public class ImpalaInsertDataForTest {
 
                 // metaType : 0-字符串,1-整数,2-时间字符串,3-小数,4-boolean, 5-tinyint
                 // 商品名称
-                ImpalaMetaData meta0 = new ImpalaMetaData(20L,0,RandomUtils.getRandomStr("小米","苹果","OPPO","三星NOTE"));
+                ImpalaMetaData meta0 = new ImpalaMetaData(20L,0, RandomUtils.getRandomStr("小米","苹果","OPPO","三星NOTE"));
                 baseAttrs.add(meta0);
                 // 商品重量
-                ImpalaMetaData meta1 = new ImpalaMetaData(21L,1,RandomUtils.getRandomWeight());
+                ImpalaMetaData meta1 = new ImpalaMetaData(21L,1, RandomUtils.getRandomWeight());
                 baseAttrs.add(meta1);
                 // 生产时间
-                ImpalaMetaData meta2 = new ImpalaMetaData(22L,2,RandomUtils.getRandomEventTime());
+                ImpalaMetaData meta2 = new ImpalaMetaData(22L,2, RandomUtils.getRandomEventTime());
                 baseAttrs.add(meta2);
                 // 商品价格
-                ImpalaMetaData meta3 = new ImpalaMetaData(23L,3,RandomUtils.getPrice());
+                ImpalaMetaData meta3 = new ImpalaMetaData(23L,3, RandomUtils.getPrice());
                 baseAttrs.add(meta3);
 
                 //是否提供保修
-                ImpalaMetaData meta4 = new ImpalaMetaData(24L,4,RandomUtils.getRandomStr("true","false"));
+                ImpalaMetaData meta4 = new ImpalaMetaData(24L,4, RandomUtils.getRandomStr("true","false"));
                 baseAttrs.add(meta4);
 
                 //是否7天无理由退换
-                ImpalaMetaData meta5 = new ImpalaMetaData(25L,5,RandomUtils.getRandomStr("true","false"));
+                ImpalaMetaData meta5 = new ImpalaMetaData(25L,5, RandomUtils.getRandomStr("true","false"));
                 baseAttrs.add(meta5);
 
                 //商品颜色
-                ImpalaMetaData meta6 = new ImpalaMetaData(26L,0,RandomUtils.getRandomStr("红色","黄色","黑色"));
+                ImpalaMetaData meta6 = new ImpalaMetaData(26L,0, RandomUtils.getRandomStr("红色","黄色","黑色"));
                 baseAttrs.add(meta6);
 
                 //生产地址
-                ImpalaMetaData meta7 = new ImpalaMetaData(27L,0,RandomUtils.getRandomStr("青岛","潍坊","济南","临沂"));
+                ImpalaMetaData meta7 = new ImpalaMetaData(27L,0, RandomUtils.getRandomStr("青岛","潍坊","济南","临沂"));
                 baseAttrs.add(meta7);
                 //报装风格
-                ImpalaMetaData meta8 = new ImpalaMetaData(28L,0,RandomUtils.getRandomStr("简约","礼盒"));
+                ImpalaMetaData meta8 = new ImpalaMetaData(28L,0, RandomUtils.getRandomStr("简约","礼盒"));
                 baseAttrs.add(meta8);
                 //子型号
-                ImpalaMetaData meta9 = new ImpalaMetaData(29L,0,RandomUtils.getRandomStr("6","7","8","9"));
+                ImpalaMetaData meta9 = new ImpalaMetaData(29L,0, RandomUtils.getRandomStr("6","7","8","9"));
                 baseAttrs.add(meta9);
 
                 baseData.setBaseAttrs(baseAttrs);
@@ -191,40 +191,40 @@ public class ImpalaInsertDataForTest {
                 baseData.setEventId(3);
                 List<ImpalaMetaData> baseAttrs = Lists.newArrayList();
                 // 购买时间
-                ImpalaMetaData meta0 = new ImpalaMetaData(30L,0,RandomUtils.getRandomStr("国美","苏宁","微店","天猫","其他"));
+                ImpalaMetaData meta0 = new ImpalaMetaData(30L,0, RandomUtils.getRandomStr("国美","苏宁","微店","天猫","其他"));
                 baseAttrs.add(meta0);
                 // 屏幕宽度
-                ImpalaMetaData meta1 = new ImpalaMetaData(31L,1,RandomUtils.getRandomWeight());
+                ImpalaMetaData meta1 = new ImpalaMetaData(31L,1, RandomUtils.getRandomWeight());
                 baseAttrs.add(meta1);
                 // 加入购物车的时间
-                ImpalaMetaData meta2 = new ImpalaMetaData(32L,2,RandomUtils.getRandomEventTime());
+                ImpalaMetaData meta2 = new ImpalaMetaData(32L,2, RandomUtils.getRandomEventTime());
                 baseAttrs.add(meta2);
                 // 支付的金额
-                ImpalaMetaData meta3 = new ImpalaMetaData(33L,3,RandomUtils.getPrice());
+                ImpalaMetaData meta3 = new ImpalaMetaData(33L,3, RandomUtils.getPrice());
                 baseAttrs.add(meta3);
 
                 // 是否有折扣
-                ImpalaMetaData meta4 = new ImpalaMetaData(34L,4,RandomUtils.getRandomStr("true","false"));
+                ImpalaMetaData meta4 = new ImpalaMetaData(34L,4, RandomUtils.getRandomStr("true","false"));
                 baseAttrs.add(meta4);
 
                 // 是否使用了优惠券
-                ImpalaMetaData meta5 = new ImpalaMetaData(35L,5,RandomUtils.getRandomStr("true","false"));
+                ImpalaMetaData meta5 = new ImpalaMetaData(35L,5, RandomUtils.getRandomStr("true","false"));
                 baseAttrs.add(meta5);
 
                 // 操作系统版本
-                ImpalaMetaData meta6 = new ImpalaMetaData(36L,0,RandomUtils.getRandomStr("IOS","Android","Windows","MAC"));
+                ImpalaMetaData meta6 = new ImpalaMetaData(36L,0, RandomUtils.getRandomStr("IOS","Android","Windows","MAC"));
                 baseAttrs.add(meta6);
 
                 // 商品所在地
-                ImpalaMetaData meta7 = new ImpalaMetaData(37L,0,RandomUtils.getRandomStr("青岛","潍坊","济南","临沂"));
+                ImpalaMetaData meta7 = new ImpalaMetaData(37L,0, RandomUtils.getRandomStr("青岛","潍坊","济南","临沂"));
                 baseAttrs.add(meta7);
 
                 // 使用的浏览器版本
-                ImpalaMetaData meta8 = new ImpalaMetaData(38L,0,RandomUtils.getRandomStr("简约","礼盒"));
+                ImpalaMetaData meta8 = new ImpalaMetaData(38L,0, RandomUtils.getRandomStr("简约","礼盒"));
                 baseAttrs.add(meta8);
 
                 //子型号
-                ImpalaMetaData meta9 = new ImpalaMetaData(39L,0,RandomUtils.getRandomStr("6","7","8","9"));
+                ImpalaMetaData meta9 = new ImpalaMetaData(39L,0, RandomUtils.getRandomStr("6","7","8","9"));
                 baseAttrs.add(meta9);
 
                 baseData.setBaseAttrs(baseAttrs);
@@ -301,21 +301,21 @@ public class ImpalaInsertDataForTest {
                 // 金额
                 ImpalaMetaData meta10 = new ImpalaMetaData(30L,3,String.valueOf(price));
                 // 国家
-                ImpalaMetaData meta11 = new ImpalaMetaData(30L,0,RandomUtils.getRandomStr("中国","美国","英国","日本","韩国","印度","俄罗斯","发过"));
+                ImpalaMetaData meta11 = new ImpalaMetaData(30L,0, RandomUtils.getRandomStr("中国","美国","英国","日本","韩国","印度","俄罗斯","发过"));
                 // language
-                ImpalaMetaData meta12 = new ImpalaMetaData(30L,0,RandomUtils.getRandomStr("汉语","英语","日语","法语","韩语","俄语"));
+                ImpalaMetaData meta12 = new ImpalaMetaData(30L,0, RandomUtils.getRandomStr("汉语","英语","日语","法语","韩语","俄语"));
                 // 省份
-                ImpalaMetaData meta13 = new ImpalaMetaData(30L,0,RandomUtils.getRandomProvince());
+                ImpalaMetaData meta13 = new ImpalaMetaData(30L,0, RandomUtils.getRandomProvince());
                 // 操作系统
-                ImpalaMetaData meta14 = new ImpalaMetaData(30L,0,RandomUtils.getRandomStr("IOS","Android","MAC","WINDOWS"));
+                ImpalaMetaData meta14 = new ImpalaMetaData(30L,0, RandomUtils.getRandomStr("IOS","Android","MAC","WINDOWS"));
                 // network type
-                ImpalaMetaData meta15 = new ImpalaMetaData(30L,0,RandomUtils.getRandomStr("WIFI","4G","3G","2G"));
+                ImpalaMetaData meta15 = new ImpalaMetaData(30L,0, RandomUtils.getRandomStr("WIFI","4G","3G","2G"));
                 // user_status
-                ImpalaMetaData meta16 = new ImpalaMetaData(30L,0,RandomUtils.getRandomStr("ACTIVE","INACTIVE"));
+                ImpalaMetaData meta16 = new ImpalaMetaData(30L,0, RandomUtils.getRandomStr("ACTIVE","INACTIVE"));
                 // 性别
-                ImpalaMetaData meta17 = new ImpalaMetaData(30L,0,RandomUtils.getRandomStr("MALE","FEMALE"));
+                ImpalaMetaData meta17 = new ImpalaMetaData(30L,0, RandomUtils.getRandomStr("MALE","FEMALE"));
                 // VIP
-                ImpalaMetaData meta18 = new ImpalaMetaData(30L,0,RandomUtils.getRandomStr("QINGTONG","BAIYIN","HUANGJIN","ZUANSHI"));
+                ImpalaMetaData meta18 = new ImpalaMetaData(30L,0, RandomUtils.getRandomStr("QINGTONG","BAIYIN","HUANGJIN","ZUANSHI"));
                 //第一次下单时间
                 ImpalaMetaData meta19 = new ImpalaMetaData(30L,1,time11);
                 //注册时间
@@ -396,12 +396,12 @@ public class ImpalaInsertDataForTest {
     @GetMapping("/importCsv")
     public String importCsv(@RequestParam(value="start",required=true) int start, @RequestParam(value="end",required=true)int end){
         ImpalaBatchData batch = new ImpalaBatchData();
-        batch.setCid(111L);
+        batch.setCid(120L);
         for (int s = start; s < end; s ++) {
-            int countStart = s * 100;
+            int countStart = s * 100000;
             Long startTime = System.currentTimeMillis();
 
-            List<String> dataList = CSVUtils.importCsv(new File("/Users/yaoyt/Downloads/test.csv"),countStart);
+            List<String> dataList = CSVUtils.importCsv(new File("/Users/yaoyt/Downloads/test3.csv"),countStart);
             //List<String> dataList = CSVUtils.importCsv(new File("/root/test.csv"),countStart);
             List<ImpalaBaseData> datas = Lists.newArrayList();
 
@@ -409,6 +409,7 @@ public class ImpalaInsertDataForTest {
                 String data = dataList.get(i);
                 String[] attrs = data.split(",");
                 ImpalaBaseData baseData = new ImpalaBaseData();
+                baseData.setUsercode(attrs[0]);
                 List<ImpalaMetaData> baseAttrs = Lists.newArrayList();
                 for (int j = 0; j < attrs.length; j ++) {
                     String attr = attrs[j];
@@ -425,12 +426,14 @@ public class ImpalaInsertDataForTest {
                     }else{
                         meta = new ImpalaMetaData(30L, 0, attr);
                     }*/
-                    if (j == 0 || j == 3 ||j == 20 || j ==21 ) {
-                        meta = new ImpalaMetaData(30L, 1, attr);
+                    if ( j == 3 ||j == 20 || j ==21 ) {
+                        meta = new ImpalaMetaData(10L + j, 1, attr);
+                    }else if ( j == 6 || j == 7 || j == 8 || j == 9  ){
+                        meta = new ImpalaMetaData(10L + j, 2, attr);
                     }else if (j == 11) {
-                        meta = new ImpalaMetaData(30L, 0, attr);
+                        meta = new ImpalaMetaData(10L + j, 3, attr);
                     }else{
-                        meta = new ImpalaMetaData(30L, 0, attr);
+                        meta = new ImpalaMetaData(10L + j, 0, attr);
                     }
                     baseAttrs.add(meta);
                 }
@@ -440,7 +443,7 @@ public class ImpalaInsertDataForTest {
             batch.setDatas(datas);
             //System.out.println(JSON.toJSONString(batch));
             logger.info("开始请求第{}千事件信息,数据整理时间:{}ms",s,System.currentTimeMillis() - startTime);
-            HttpUtils.doPostImpala(url+"batch/inserteventForTest",auth, JSON.toJSONString(batch));
+            HttpUtils.doPostImpala(url+"batch/insertuser",auth, JSON.toJSONString(batch));
             logger.info("保存成功");
         }
         return "success";

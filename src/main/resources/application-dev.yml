@@ -1,10 +1,16 @@
 server:
     port: 8091
-    context-path: /sb
+    context-path: /
 
+# 日志级别,默认的日志实现是logback
 logging:
+    path: /tmp
     level:
-        root: debug
+        root: "TRACE"
+        com.beta.sb.web.rest.HelloWorldController: "WARN"
+    config:
+        classpath: logback-spring.xml
+
 
 common:
     properties:

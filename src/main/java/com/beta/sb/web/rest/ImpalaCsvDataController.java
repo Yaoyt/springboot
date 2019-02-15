@@ -33,7 +33,7 @@ public class ImpalaCsvDataController {
         for (int s = start; s < end; s ++) {
             logger.info("开始保存第{}万事件信息",s);
             List<ImpalaBaseData> datas = Lists.newArrayList();
-            for(int i = 0; i < 100; i ++) {
+            for(int i = 0; i < 10000; i ++) {
                 ImpalaBaseData baseData = new ImpalaBaseData();
                 List<ImpalaMetaData> baseAttrs = Lists.newArrayList();
                 String name = RandomUtils.getRandomStr("张三","李四","王五","赵六","陈泊亿","陈泊贤","陈泊兮","陈泊夕","陈泊凡","陈泊尚","陈书坦","陈来君","陈寅坤","陈铖澄","陈绎暄","陈勇驰","陈榆廷","陈鹏麟","陈集双","陈隆年","陈阿伯","陈长老","陈镐民","陈重名","陈逢衡","陈通筹","陈贻范","陈诚任","陈被举","陈荣捷"
@@ -73,21 +73,21 @@ public class ImpalaCsvDataController {
                 // 金额
                 ImpalaMetaData meta10 = new ImpalaMetaData(30L,3,String.valueOf(price));
                 // 国家
-                ImpalaMetaData meta11 = new ImpalaMetaData(30L,0,RandomUtils.getRandomStr("中国","美国","英国","日本","韩国","印度","俄罗斯","发过"));
+                ImpalaMetaData meta11 = new ImpalaMetaData(30L,0, RandomUtils.getRandomStr("中国","美国","英国","日本","韩国","印度","俄罗斯","发过"));
                 // language
-                ImpalaMetaData meta12 = new ImpalaMetaData(30L,0,RandomUtils.getRandomStr("汉语","英语","日语","法语","韩语","俄语"));
+                ImpalaMetaData meta12 = new ImpalaMetaData(30L,0, RandomUtils.getRandomStr("汉语","英语","日语","法语","韩语","俄语"));
                 // 省份
-                ImpalaMetaData meta13 = new ImpalaMetaData(30L,0,RandomUtils.getRandomProvince());
+                ImpalaMetaData meta13 = new ImpalaMetaData(30L,0, RandomUtils.getRandomProvince());
                 // 操作系统
-                ImpalaMetaData meta14 = new ImpalaMetaData(30L,0,RandomUtils.getRandomStr("IOS","Android","MAC","WINDOWS"));
+                ImpalaMetaData meta14 = new ImpalaMetaData(30L,0, RandomUtils.getRandomStr("IOS","Android","MAC","WINDOWS"));
                 // network type
-                ImpalaMetaData meta15 = new ImpalaMetaData(30L,0,RandomUtils.getRandomStr("WIFI","4G","3G","2G"));
+                ImpalaMetaData meta15 = new ImpalaMetaData(30L,0, RandomUtils.getRandomStr("WIFI","4G","3G","2G"));
                 // user_status
-                ImpalaMetaData meta16 = new ImpalaMetaData(30L,0,RandomUtils.getRandomStr("激活","未激活"));
+                ImpalaMetaData meta16 = new ImpalaMetaData(30L,0, RandomUtils.getRandomStr("激活","未激活"));
                 // 性别
-                ImpalaMetaData meta17 = new ImpalaMetaData(30L,0,RandomUtils.getRandomStr("MALE","FEMALE"));
+                ImpalaMetaData meta17 = new ImpalaMetaData(30L,0, RandomUtils.getRandomStr("MALE","FEMALE"));
                 // VIP
-                ImpalaMetaData meta18 = new ImpalaMetaData(30L,0,RandomUtils.getRandomStr("铜牌","银牌","金牌","钻石"));
+                ImpalaMetaData meta18 = new ImpalaMetaData(30L,0, RandomUtils.getRandomStr("铜牌","银牌","金牌","钻石"));
                 //第一次下单时间
                 ImpalaMetaData meta19 = new ImpalaMetaData(30L,1,time11);
                 //注册时间
@@ -132,7 +132,7 @@ public class ImpalaCsvDataController {
                 }
                 strs.add(sb.toString());
             }
-            boolean isSuccess= CSVUtils.exportCsv(new File("/Users/yaoyt/Downloads/test2.csv"), strs);
+            boolean isSuccess= CSVUtils.exportCsv(new File("/Users/yaoyt/Downloads/test10W.csv"), strs);
 
             //System.out.println(JSON.toJSONString(strs));
             logger.info("保存成功: {} ", isSuccess);
