@@ -28,7 +28,7 @@ public class ImpalaInsertController {
 
     private static String url = "http://localhost:8081/api/";
 
-    private static String auth = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTQ5NzQxOTE4MX0.8-JddTsrbgeCCuftbbFsq5z315HzEZssvA-hGp4rnGdsxWaKV3wTT75ltQKxb2Znuo6MeGdli7WTk14OVY0KoQ";
+    private static String auth = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTQ5OTIzMzQxN30.uzjomX3JJsh8mGT5whyX6n1dcW9Pa2Jn1EnHogambbJKKqge8Z9AzDQv0_6kFtPpj969-M8tk4Lf2hwKnvu-WQ";
 
     private static Logger logger = LoggerFactory.getLogger(ImpalaInsertController.class);
 
@@ -38,21 +38,22 @@ public class ImpalaInsertController {
      *@time 17/5/24 下午1:40
      */
     @GetMapping("/insertuserinfo")
-    public String insert(@RequestParam(value="num",required=true) long num) {
+    public String insert(@RequestParam(value="start",required=true) int start, @RequestParam(value="end",required=true)int end) {
         ImpalaBatchData batch = new ImpalaBatchData();
-        batch.setCid(111L);
-        for (int j = 0; j < num; j ++) {
+        batch.setCid(118L);
+        for (int j = start ; j < end; j ++) {
             logger.info("正在保存第 {}*100 条数据",j);
             List<ImpalaBaseData> datas = Lists.newArrayList();
             for(int i = 0; i < 100; i ++) {
-                int userId = new Random().nextInt(10000000);
+                //int userId = j * 100000 + i;
+                int userId = new Random().nextInt(10);
                 ImpalaBaseData baseData = new ImpalaBaseData();
-                baseData.setUsercode("user_code_" + userId);
+                baseData.setUsercode("user_" + userId);
                 List<ImpalaMetaData> baseAttrs = Lists.newArrayList();
                 //设置姓名属性,metaType : 0-字符串,1-整数,2-时间字符串,3-小数
                 ImpalaMetaData meta1 = new ImpalaMetaData();
                 meta1.setId(11L);
-                meta1.setMetaData("张三"+userId);
+                meta1.setMetaData(RandomUtils.getRandomStr("张三","李四","王五","赵六")+ userId );
                 meta1.setMetaType(0);
                 baseAttrs.add(meta1);
                 //性别
@@ -88,7 +89,7 @@ public class ImpalaInsertController {
                 //出生年月
                 ImpalaMetaData meta7 = new ImpalaMetaData();
                 meta7.setId(17L);
-                meta7.setMetaData("19900123");
+                meta7.setMetaData(RandomUtils.getRandomBirthDay());
                 meta7.setMetaType(0);
                 baseAttrs.add(meta7);
                 //注册时间
@@ -100,8 +101,8 @@ public class ImpalaInsertController {
                 //是否为会员
                 ImpalaMetaData meta9 = new ImpalaMetaData();
                 meta9.setId(19L);
-                meta9.setMetaData(RandomUtils.getBoolean());
-                meta9.setMetaType(1);
+                meta9.setMetaData(RandomUtils.getRandomStr("true","false"));
+                meta9.setMetaType(4);
                 baseAttrs.add(meta9);
                 //体重
                 ImpalaMetaData meta10 = new ImpalaMetaData();
@@ -220,22 +221,25 @@ public class ImpalaInsertController {
      *@time 17/5/24 下午1:40
      */
     @GetMapping("/inserteventinfo")
-    public String insertEventInfo(@RequestParam(value="num",required=true) long num){
+    public String insertEventInfo(@RequestParam(value="start",required=true) int start, @RequestParam(value="end",required=true)int end){
         ImpalaBatchData batch = new ImpalaBatchData();
         batch.setCid(111L);
-        for (int s = 0; s < num; s ++) {
+        for (int s = start; s < end; s ++) {
             logger.info("开始请求第{}万事件信息",s);
             List<ImpalaBaseData> datas = Lists.newArrayList();
             for(int i = 0; i < 10000; i ++) {
                 ImpalaBaseData baseData = new ImpalaBaseData();
                 baseData.setUsercode("user_code_" + new Random().nextInt(10000000));
                 baseData.setItemcode("item_code_" + new Random().nextInt(100000));
-                baseData.setEventId(2);
+                String eventTime = RandomUtils.getRandomEventTime();
+                baseData.setCreateTime(eventTime);
+                baseData.setCreateDate(eventTime.substring(0,10));
+                baseData.setEventId(1);
                 List<ImpalaMetaData> baseAttrs = Lists.newArrayList();
                 //event_id = 1, 购买时间
                 ImpalaMetaData meta1 = new ImpalaMetaData();
                 meta1.setId(31L);
-                meta1.setMetaData(RandomUtils.getCurrentTime());
+                meta1.setMetaData(eventTime);
                 meta1.setMetaType(2);
                 baseAttrs.add(meta1);
                 //event_id = 1,支付金额
@@ -270,7 +274,105 @@ public class ImpalaInsertController {
             }
             batch.setDatas(datas);
             //System.out.println(JSON.toJSONString(batch));
-            HttpUtils.doPostImpala(url+"batch/insertevent",auth, JSON.toJSONString(batch));
+            HttpUtils.doPostImpala(url+"batch/insertevent2",auth, JSON.toJSONString(batch));
+            logger.info("保存成功");
+        }
+        return "success";
+    }
+
+
+    /**
+     *方法的功能描述:插入用户数据,userNum 代表 插入的用户数量,单位是500
+     *@author yaoyt
+     *@time 17/5/24 下午1:40
+     */
+    @GetMapping("/inserteventinfoNoPartition")
+    public String inserteventinfoNoPartition(@RequestParam(value="start",required=true) int start, @RequestParam(value="end",required=true)int end){
+        ImpalaBatchData batch = new ImpalaBatchData();
+        batch.setCid(111L);
+        for (int s = start; s < end; s ++) {
+            logger.info("开始请求第{}万事件信息",s);
+            List<ImpalaBaseData> datas = Lists.newArrayList();
+            for(int i = 0; i < 10000; i ++) {
+                ImpalaBaseData baseData = new ImpalaBaseData();
+                baseData.setUsercode("user_code_" + new Random().nextInt(100000));
+                baseData.setItemcode("item_code_" + new Random().nextInt(100000));
+                String eventTime = RandomUtils.getRandomEventTime();
+                baseData.setCreateTime(eventTime);
+                baseData.setCreateDate(eventTime.substring(0,10));
+                baseData.setEventId(1);
+                List<ImpalaMetaData> baseAttrs = Lists.newArrayList();
+                //event_id = 1, 购买时间
+                ImpalaMetaData meta1 = new ImpalaMetaData();
+                meta1.setId(31L);
+                meta1.setMetaData(eventTime);
+                meta1.setMetaType(2);
+                baseAttrs.add(meta1);
+                //event_id = 1,支付金额
+                ImpalaMetaData meta2 = new ImpalaMetaData();
+                meta2.setId(32L);
+                meta2.setMetaData(RandomUtils.getPrice());
+                meta2.setMetaType(3);
+                baseAttrs.add(meta2);
+                //event_id = 1, 付款渠道
+                ImpalaMetaData meta3 = new ImpalaMetaData();
+                meta3.setId(33L);
+                meta3.setMetaData(RandomUtils.getRandomStr("支付宝","微信","银联","POS机"));
+                meta3.setMetaType(0);
+                baseAttrs.add(meta3);
+                //event_id = 1, 购买商场
+                ImpalaMetaData meta4 = new ImpalaMetaData();
+                meta4.setId(34L);
+                meta4.setMetaData(RandomUtils.getRandomStr("国美","苏宁","微店","天猫","其他"));
+                meta4.setMetaType(0);
+                baseAttrs.add(meta4);
+                //event_id = 1, 购买数量
+                ImpalaMetaData meta5 = new ImpalaMetaData();
+                meta5.setId(35L);
+                meta5.setMetaData(RandomUtils.getRandomStr("1","2","3","4","5","6","7","8","9","10"));
+                meta5.setMetaType(1);
+                baseAttrs.add(meta5);
+
+                //event_id = 1, 购买时间
+                ImpalaMetaData meta6 = new ImpalaMetaData();
+                meta6.setId(36L);
+                meta6.setMetaData(eventTime);
+                meta6.setMetaType(2);
+                baseAttrs.add(meta6);
+                //event_id = 1,支付金额
+                ImpalaMetaData meta7 = new ImpalaMetaData();
+                meta7.setId(37L);
+                meta7.setMetaData(RandomUtils.getPrice());
+                meta7.setMetaType(3);
+                baseAttrs.add(meta7);
+                //event_id = 1, 付款渠道
+                ImpalaMetaData meta8 = new ImpalaMetaData();
+                meta8.setId(38L);
+                meta8.setMetaData(RandomUtils.getRandomStr("支付宝","微信","银联","POS机"));
+                meta8.setMetaType(0);
+                baseAttrs.add(meta8);
+                //event_id = 1, 购买商场
+                ImpalaMetaData meta9 = new ImpalaMetaData();
+                meta9.setId(39L);
+                meta9.setMetaData(RandomUtils.getRandomStr("国美","苏宁","微店","天猫","其他"));
+                meta9.setMetaType(0);
+                baseAttrs.add(meta9);
+                //event_id = 1, 购买数量
+                ImpalaMetaData meta10 = new ImpalaMetaData();
+                meta10.setId(40L);
+                meta10.setMetaData(RandomUtils.getRandomStr("1","2","3","4","5","6","7","8","9","10"));
+                meta10.setMetaType(1);
+                baseAttrs.add(meta10);
+
+
+                baseData.setBaseAttrs(baseAttrs);
+
+                datas.add(baseData);
+
+            }
+            batch.setDatas(datas);
+            //System.out.println(JSON.toJSONString(batch));
+            HttpUtils.doPostImpala(url+"batch/insertevent2",auth, JSON.toJSONString(batch));
             logger.info("保存成功");
         }
         return "success";

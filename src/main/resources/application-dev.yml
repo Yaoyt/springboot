@@ -1,10 +1,10 @@
 server:
-    port: 8083
+    port: 8091
     context-path: /sb
 
 logging:
     level:
-        root: info
+        root: debug
 
 common:
     properties:

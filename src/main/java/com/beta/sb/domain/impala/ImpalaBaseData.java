@@ -22,6 +22,26 @@ public class ImpalaBaseData implements Serializable{
 
     private long cid;
 
+    private String createTime;
+
+    private String createDate;
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
     public long getEventId() {
         return eventId;
     }
