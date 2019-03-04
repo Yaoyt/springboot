@@ -17,7 +17,6 @@ public class CompletionServiceTest {
 
         for(int i = 0; i < 10; i++){
             String result = pool.take().get();
-
             //Compute the result
             System.out.println(result);
         }
